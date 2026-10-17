@@ -1,0 +1,17 @@
+.bugWrapper {
+  position: absolute;
+  top: 36px;
+  right: 72px;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.bugLogo {
+  height: 160px;
+  width: auto;
+  max-width: 400px;
+  object-fit: contain;
+  filter: brightness(0) invert(1) sepia(1) saturate(5.5) hue-rotate(355deg) brightness(1.22)
+    drop-shadow(0 0 24px rgb(242 200 121 / 0.75))
+    drop-shadow(0 4px 18px rgb(0 0 0 / 0.85)) !important;
+}

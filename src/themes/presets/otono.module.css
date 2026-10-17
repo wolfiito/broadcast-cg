@@ -1,0 +1,344 @@
+/* ==========================================================================
+   OTOÑO — Basado en el key visual de Firefly (public/brand/nuevo/keyvisual.png):
+   hojas de roble a contraluz, luz ámbar que baja desde arriba, fondo café casi negro.
+   Paleta: café #1A0F09 · crema #F7E9D2 · ámbar #E3A24F · oro #F2C879 · óxido #B4532A
+   Tipografía: Noto Serif Display (texto) + Montserrat espaciada (citas y cargos).
+   Usa SU paleta (no el color de acento del panel) para ser fiel al key visual.
+   ========================================================================== */
+
+.stage {
+  --cafe: 26 15 9;
+  --crema: #f7e9d2;
+  --ambar: #e3a24f;
+  --oro: #f2c879;
+  --oxido: #b4532a;
+  /* Número de versículo (LowerThird.module.css) */
+  --accent: var(--ambar);
+
+  position: absolute;
+  left: 96px;
+  right: 96px;
+  bottom: 48px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.box {
+  position: relative;
+  width: 100%;
+  max-width: 1728px;
+  will-change: transform, opacity, filter, clip-path;
+}
+
+/* ── VERSÍCULO: panel café con el key visual muy tenue detrás y un haz de luz desde arriba ── */
+.panel {
+  position: relative;
+  overflow: hidden;
+  padding: 44px 230px 36px;
+  text-align: center;
+  color: var(--crema);
+  border-radius: 6px;
+  background: rgb(var(--cafe));
+}
+
+/* Key visual de fondo (la imagen la pone OtonoDecor con ruta relativa) + velo café y haz de luz */
+.kv {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+}
+.kv::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(45% 110% at 50% 0%, rgb(227 162 79 / 0.24), rgb(227 162 79 / 0) 70%),
+    linear-gradient(180deg, rgb(var(--cafe) / 0.8), rgb(var(--cafe) / 0.93));
+}
+
+/* Haz de luz: filete dorado con resplandor que se abre desde el centro */
+.accent {
+  position: absolute;
+  top: 0;
+  left: 14%;
+  right: 14%;
+  height: 2px;
+  background: linear-gradient(90deg, rgb(242 200 121 / 0), var(--oro) 50%, rgb(242 200 121 / 0));
+  box-shadow: 0 0 22px 3px rgb(242 200 121 / 0.45);
+  transform-origin: 50% 50%;
+  z-index: 2;
+}
+
+.content { position: relative; z-index: 1; }
+
+.title {
+  --fit-max-height: 200px;
+  --fit-min: 30px;
+  font-family: "Noto Serif Display", Georgia, serif;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.22;
+  color: var(--crema);
+  text-shadow: 0 2px 14px rgb(0 0 0 / 0.55);
+  text-wrap: pretty;
+}
+
+.subtitle {
+  padding-top: 20px;
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 0.3em;
+  margin-right: -0.3em;
+  text-transform: uppercase;
+  color: var(--ambar);
+}
+
+/* ── CITA BÍBLICA: libro y capítulo destacados con mayor tamaño y destellos dorados ── */
+.stage[data-kind="scripture"] .subtitle {
+  padding-top: 24px;
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 0.22em;
+  margin-right: -0.22em;
+  text-transform: uppercase;
+  color: var(--oro);
+  text-shadow: 0 0 20px rgb(242 200 121 / 0.5), 0 2px 10px rgb(0 0 0 / 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.stage[data-kind="scripture"] .subtitle::before,
+.stage[data-kind="scripture"] .subtitle::after {
+  content: "";
+  display: inline-block;
+  height: 2px;
+  width: 56px;
+  background: linear-gradient(90deg, transparent, var(--oro), transparent);
+  box-shadow: 0 0 10px rgb(242 200 121 / 0.55);
+}
+
+/* Hojas de roble en las esquinas, como en el key visual */
+.leaf {
+  position: absolute;
+  right: 64px;
+  top: 50%;
+  height: min(170px, calc(100% - 40px));
+  width: auto;
+  aspect-ratio: 100 / 160;
+  color: var(--oxido);
+  transform: translateY(-50%) rotate(22deg);
+}
+.leafSmall {
+  position: absolute;
+  left: 70px;
+  bottom: 18px;
+  height: min(96px, calc(100% - 50px));
+  width: auto;
+  aspect-ratio: 100 / 160;
+  color: var(--ambar);
+  opacity: 0.55;
+  transform: rotate(-34deg);
+}
+
+/* ── CANCIÓN: sin caja; degradado café desde abajo con resplandor ámbar y hojas cayendo ── */
+.stage[data-kind="lyrics"] { left: 0; right: 0; bottom: 0; }
+.stage[data-kind="lyrics"] .box { max-width: none; }
+.stage[data-kind="lyrics"] .panel {
+  overflow: visible;
+  padding: 120px 280px 66px;
+  border-radius: 0;
+  background:
+    radial-gradient(40% 70% at 50% 100%, rgb(227 162 79 / 0.2), rgb(227 162 79 / 0) 70%),
+    linear-gradient(to top, rgb(var(--cafe) / 0.94) 0%, rgb(var(--cafe) / 0.66) 50%, rgb(var(--cafe) / 0) 100%);
+}
+.stage[data-kind="lyrics"] .accent {
+  position: relative;
+  display: block;
+  left: auto;
+  right: auto;
+  width: 140px;
+  margin: 0 auto 28px;
+}
+.stage[data-kind="lyrics"] .title {
+  --fit-max-height: 150px;
+  --fit-min: 36px;
+  font-style: italic;
+  font-size: 60px;
+  line-height: 1.18;
+  text-shadow: 0 4px 22px rgb(0 0 0 / 0.8);
+  text-wrap: balance;
+}
+.stage[data-kind="lyrics"] .subtitle {
+  padding-top: 14px;
+  font-weight: 500;
+  font-size: 14px;
+  color: rgb(247 233 210 / 0.72);
+}
+
+.fall {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.fallLeaf {
+  position: absolute;
+  top: 0;
+  left: var(--left);
+  width: var(--size);
+  height: auto;
+  color: var(--oxido);
+  opacity: 0;
+  animation: fall var(--dur) linear var(--delay) infinite;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.7));
+}
+.fallLeaf[data-sway="b"] { animation-name: fallSwayB; }
+.fallLeaf[data-sway="c"] { animation-name: fallSwayC; }
+
+/* Hojas que caen en la zona central de las letras: más sutiles y traslúcidas para no tapar la lectura */
+.fallLeaf[data-center="true"] {
+  opacity: 0;
+  filter: blur(0.5px) drop-shadow(0 2px 4px rgb(0 0 0 / 0.5));
+}
+
+.fallLeaf[data-tone="b"] { color: var(--ambar); filter: blur(0.8px) drop-shadow(0 2px 4px rgb(0 0 0 / 0.7)); }
+.fallLeaf[data-tone="c"] { color: var(--oro); filter: blur(0.4px) drop-shadow(0 2px 4px rgb(0 0 0 / 0.7)); }
+.fallLeaf[data-tone="d"] { color: #E65100; filter: drop-shadow(0 2px 4px rgb(0 0 0 / 0.7)); }
+
+@keyframes fall {
+  0%   { opacity: 0;    transform: translate3d(0, -40px, 0) rotate(0deg); }
+  12%  { opacity: 0.85; }
+  50%  {                transform: translate3d(24px, 130px, 0) rotate(140deg); }
+  85%  { opacity: 0.7; }
+  100% { opacity: 0;    transform: translate3d(-14px, 280px, 0) rotate(280deg); }
+}
+
+@keyframes fallSwayB {
+  0%   { opacity: 0;    transform: translate3d(0, -40px, 0) rotate(40deg); }
+  14%  { opacity: 0.8; }
+  45%  {                transform: translate3d(-24px, 120px, 0) rotate(-100deg); }
+  80%  { opacity: 0.65; }
+  100% { opacity: 0;    transform: translate3d(16px, 280px, 0) rotate(-220deg); }
+}
+
+@keyframes fallSwayC {
+  0%   { opacity: 0;    transform: translate3d(0, -40px, 0) rotate(-25deg); }
+  10%  { opacity: 0.75; }
+  55%  {                transform: translate3d(18px, 145px, 0) rotate(80deg); }
+  85%  { opacity: 0.6; }
+  100% { opacity: 0;    transform: translate3d(-8px, 280px, 0) rotate(190deg); }
+}
+
+/* ── LOGO DE LA IGLESIA DENTRO DE LA PLECA ── */
+.logo {
+  position: absolute;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 2;
+  filter: brightness(0) invert(1) sepia(1) saturate(5.5) hue-rotate(355deg) brightness(1.22)
+    drop-shadow(0 0 16px rgb(242 200 121 / 0.7))
+    drop-shadow(0 2px 8px rgb(0 0 0 / 0.8)) !important;
+}
+
+/* En versículos y canciones: oculto para dar prioridad a la lectura y adoración */
+.stage[data-kind="scripture"] .logo,
+.stage[data-kind="lyrics"] .logo {
+  display: none;
+}
+
+/* ── RAMAS OTOÑALES DE MAPLE EN ESQUINAS INFERIORES (SOLO SCRIPTURE) ── */
+.branchLeft,
+.branchRight {
+  position: absolute;
+  bottom: 0;
+  width: 250px;
+  height: auto;
+  pointer-events: none;
+  z-index: 10;
+  filter: drop-shadow(0 2px 10px rgb(0 0 0 / 0.9));
+}
+.branchLeft {
+  left: 0;
+}
+.branchRight {
+  right: 0;
+}
+
+/* ── NOMBRE / EXPOSITOR: placa a la izquierda, logo ancla + barra divisoria + texto ── */
+.stage[data-kind="info"] { right: auto; bottom: 96px; justify-content: flex-start; }
+.stage[data-kind="info"] .box { width: auto; max-width: 1200px; }
+.stage[data-kind="info"] .panel {
+  padding: 26px 56px 28px 172px;
+  text-align: left;
+  border-radius: 4px;
+}
+.stage[data-kind="info"] .logo {
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 110px;
+  width: auto;
+  max-width: 95px;
+  opacity: 1;
+}
+.stage[data-kind="info"] .kv { background-position: right 20%; }
+.stage[data-kind="info"] .kv::after {
+  background:
+    radial-gradient(60% 120% at 0% 50%, rgb(227 162 79 / 0.2), rgb(227 162 79 / 0) 70%),
+    linear-gradient(90deg, rgb(var(--cafe) / 0.93), rgb(var(--cafe) / 0.8));
+}
+.stage[data-kind="info"] .accent { display: none; }
+.stage[data-kind="info"] .title {
+  --fit-max-height: 140px;
+  --fit-min: 36px;
+  font-weight: 600;
+  font-size: 58px;
+  line-height: 1.08;
+  text-wrap: balance;
+}
+.stage[data-kind="info"] .subtitle {
+  padding-top: 10px;
+  font-size: 17px;
+  letter-spacing: 0.26em;
+  margin-right: -0.26em;
+}
+
+.shimmer {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 55%;
+  pointer-events: none;
+  z-index: 2;
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgb(242 200 121 / 0) 18%,
+    rgb(242 200 121 / 0.22) 38%,
+    rgb(255 255 255 / 0.55) 50%,
+    rgb(242 200 121 / 0.22) 62%,
+    rgb(242 200 121 / 0) 82%,
+    transparent 100%
+  );
+}
+
+.bar {
+  position: absolute;
+  left: 143px;
+  top: 15%;
+  bottom: 15%;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--oro) 25%, var(--oxido) 75%, transparent);
+  box-shadow: 0 0 12px 1px rgb(242 200 121 / 0.5);
+  transform-origin: 50% 50%;
+  z-index: 3;
+}
+

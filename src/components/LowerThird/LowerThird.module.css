@@ -1,0 +1,35 @@
+/* Primitivas compartidas por todos los temas */
+
+/* Contenedor posicionado: AnimatePresence (popLayout) coloca aquí el texto saliente
+   en position:absolute mientras el entrante ocupa su lugar → fundido cruzado. */
+.slot {
+  position: relative;
+}
+
+/* Máscara de revelado: el texto vive dentro y entra/sale por sus bordes.
+   El padding + margin negativo da aire a ascendentes/descendentes (p, g, Á)
+   y a itálicas, sin alterar el layout del tema. */
+.mask {
+  display: block;
+  overflow: hidden;
+  padding: 0.14em 0.1em;
+  margin: -0.14em -0.1em;
+}
+
+.line {
+  display: block;
+  will-change: transform, opacity;
+}
+
+/* Número de versículo: pequeño, en el color de la iglesia, sin alterar el interlineado */
+.verse {
+  font-size: 0.5em;
+  font-weight: 600;
+  vertical-align: 0.85em;
+  line-height: 0;
+  margin-right: 0.3em;
+  color: var(--accent);
+  font-variant-numeric: lining-nums;
+  font-family: "Montserrat", system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}

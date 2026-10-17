@@ -1,0 +1,4 @@
+/* Convierte cualquier logo (a color) en silueta blanca: consistente sobre fondos oscuros. */
+.mono {
+  filter: brightness(0) invert(1);
+}
