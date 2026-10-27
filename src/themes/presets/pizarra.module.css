@@ -1,0 +1,321 @@
+/* ==========================================================================
+   PIZARRA — Capas Rasgadas Animadas en Pizarra Profunda con Arena Rosada.
+   Tres pliegos independientes de papel artesanal escarchado con bordes
+   rasgados orgánicos (SVG displacement + grano de papel), fondo pizarra
+   profunda (#17222F -> #121A24), azul acero (#3D556C), café ceniza (#4E443B),
+   texto principal en blanco hielo (#F4F8FC) y acentos en arena rosada (#F5C2B8).
+   ========================================================================== */
+
+.stage {
+  --ice-bright: #f4f8fc;
+  --ice-gray: #dce4ea;
+  --arena-rosada: #f5c2b8;
+  --arena-glow: rgb(245 194 184 / 0.52);
+  --pizarra-profunda: #17222f;
+  --pizarra-noche: #121a24;
+  --pizarra-acero: #3d556c;
+  --ceniza-cafe: #4e443b;
+  /* Número de versículo en superíndice (LowerThird.module.css) */
+  --accent: var(--arena-rosada);
+
+  position: absolute;
+  left: 96px;
+  right: 96px;
+  bottom: 44px;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.box {
+  position: relative;
+  width: 100%;
+  max-width: 1660px;
+  will-change: transform, opacity;
+}
+
+/* ── PANEL CONTENEDOR: transparente para que brillen las 3 capas rasgadas animadas ── */
+.panel {
+  position: relative;
+  overflow: visible;
+  min-height: 250px;
+  padding: 50px 190px 42px 220px;
+  text-align: center;
+  color: var(--ice-bright);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ── CAPAS DE PAPEL ESCARCHADO RASGADO (3 Pliegos Independientes) ── */
+.layeredPapers {
+  position: absolute;
+  inset: 8px 0 6px 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.svgDefs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.paperLayer {
+  position: absolute;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+/* Grano de fibra de algodón escarchado superpuesto en cada pliego */
+.paperLayer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--paper-grain);
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: overlay;
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+/* Capa 1: Café Ceniza Profundo (Ash Brown) */
+.layerAsh {
+  top: -8px;
+  left: 42px;
+  right: 32px;
+  bottom: 12px;
+  background: linear-gradient(95deg, #52473d 0%, #3e352e 50%, #4a4037 100%);
+  border-top: 4px solid #d8d0c8;
+  border-bottom: 2px solid #b8aea4;
+  filter: url(#pizarra-torn-edge) drop-shadow(0 8px 18px rgb(0 0 0 / 0.68));
+}
+
+/* Capa 2: Azul Pizarra Medio (Slate Blue) */
+.layerSlate {
+  top: 16px;
+  left: 8px;
+  right: 18px;
+  bottom: -8px;
+  background: linear-gradient(90deg, #3d556c 0%, #2c4053 55%, #374d63 100%);
+  border-bottom: 4px solid #c8d9e8;
+  border-left: 3px solid #b0c6da;
+  filter: url(#pizarra-torn-edge) drop-shadow(0 10px 22px rgb(0 0 0 / 0.75));
+}
+
+/* Capa 3: Pliego Principal Pizarra Profunda Escarchada (Deep Frosted Slate) */
+.layerIce {
+  top: 8px;
+  left: 72px;
+  right: 14px;
+  bottom: 12px;
+  background:
+    radial-gradient(60% 100% at 50% 0%, rgb(245 194 184 / 0.14), transparent 70%),
+    linear-gradient(135deg, #212e3e 0%, #17222f 55%, #121a24 100%);
+  border-top: 4px solid #e6eff7;
+  border-bottom: 3px solid #cbdceb;
+  filter: url(#pizarra-torn-edge) drop-shadow(0 12px 28px rgb(0 0 0 / 0.85));
+}
+
+/* Filete luminoso sutil en Arena Rosada bajo el borde superior escarchado */
+.accent {
+  position: absolute;
+  top: 18px;
+  left: 18%;
+  right: 15%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--arena-rosada) 50%, transparent);
+  box-shadow: 0 0 18px 2px var(--arena-glow);
+  transform-origin: 50% 50%;
+  z-index: 3;
+}
+
+.content {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+}
+
+.title {
+  --fit-max-height: 195px;
+  --fit-min: 30px;
+  font-family: "Noto Serif Display", Georgia, serif;
+  font-weight: 400;
+  font-size: 46px;
+  line-height: 1.22;
+  color: var(--ice-bright);
+  text-shadow: 0 3px 16px rgb(0 0 0 / 0.88);
+  text-wrap: pretty;
+}
+
+.subtitle {
+  padding-top: 16px;
+  font-family: "Montserrat", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: 0.24em;
+  margin-right: -0.24em;
+  text-transform: uppercase;
+  color: var(--arena-rosada);
+  text-shadow: 0 0 16px var(--arena-glow), 0 2px 10px rgb(0 0 0 / 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.subtitle::before,
+.subtitle::after {
+  content: "";
+  display: inline-block;
+  width: 52px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--arena-rosada), transparent);
+  box-shadow: 0 0 12px var(--arena-glow);
+}
+
+/* ── CITA BÍBLICA (SCRIPTURE) ── */
+.stage[data-kind="scripture"] .subtitle {
+  font-size: 21px;
+}
+
+/* ── CANCIÓN (LYRICS): Capas rasgadas animadas + tipografía cursiva + créditos en Arena Rosada ── */
+.stage[data-kind="lyrics"] .title {
+  --fit-max-height: 155px;
+  --fit-min: 34px;
+  font-style: italic;
+  font-size: 54px;
+  line-height: 1.18;
+  text-wrap: balance;
+}
+
+.stage[data-kind="lyrics"] .subtitle {
+  padding-top: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+/* ── LOGO DE LA IGLESIA DENTRO DE LA PLECA ── */
+.logo {
+  position: absolute;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 5;
+  filter: brightness(0) invert(1) sepia(0.35) saturate(2.2) hue-rotate(315deg) brightness(1.08)
+    drop-shadow(0 0 14px var(--arena-glow))
+    drop-shadow(0 2px 8px rgb(0 0 0 / 0.85)) !important;
+}
+
+.stage[data-kind="scripture"] .logo,
+.stage[data-kind="lyrics"] .logo {
+  display: none;
+}
+
+/* ── EXPOSITOR / INFO: Pleca alineada a la izquierda con capas rasgadas + Arena Rosada ── */
+.stage[data-kind="info"] {
+  right: auto;
+  bottom: 72px;
+  justify-content: flex-start;
+}
+
+.stage[data-kind="info"] .box {
+  width: auto;
+  min-width: 760px;
+  max-width: 1120px;
+}
+
+.stage[data-kind="info"] .panel {
+  min-height: 215px;
+  padding: 40px 96px 36px 228px;
+  text-align: left;
+}
+
+.stage[data-kind="info"] .logo {
+  left: 98px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 98px;
+  width: auto;
+  max-width: 88px;
+  opacity: 1;
+}
+
+.stage[data-kind="info"] .accent {
+  display: none;
+}
+
+.stage[data-kind="info"] .title {
+  --fit-max-height: 135px;
+  --fit-min: 34px;
+  font-weight: 600;
+  font-size: 52px;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.stage[data-kind="info"] .subtitle {
+  padding-top: 10px;
+  font-size: 16px;
+  letter-spacing: 0.24em;
+  margin-right: 0;
+  justify-content: flex-start;
+}
+
+.stage[data-kind="info"] .subtitle::before {
+  width: 32px;
+  background: var(--arena-rosada);
+}
+
+.stage[data-kind="info"] .subtitle::after {
+  display: none;
+}
+
+.bar {
+  position: absolute;
+  left: 202px;
+  top: 22%;
+  bottom: 22%;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, var(--arena-rosada) 30%, var(--ice-bright) 70%, transparent);
+  box-shadow: 0 0 12px 1px var(--arena-glow);
+  transform-origin: 50% 50%;
+  z-index: 5;
+}
+
+/* ── PARTÍCULAS SUTILES DE ESCARCHA Y ARENA ROSADA FLOTANDO ── */
+.frostParticles {
+  position: absolute;
+  inset: 10px 20px;
+  pointer-events: none;
+  z-index: 4;
+  overflow: hidden;
+}
+
+.frostDot {
+  position: absolute;
+  top: -15px;
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff 0%, rgb(245 194 184 / 0.75) 60%, transparent 100%);
+  box-shadow: 0 0 8px rgb(245 194 184 / 0.8);
+  opacity: 0;
+  animation: frostFall var(--dur) linear var(--delay) infinite;
+}
+
+.frostDot[data-tone="ice"] {
+  background: radial-gradient(circle, #ffffff 0%, rgb(200 225 245 / 0.7) 60%, transparent 100%);
+  box-shadow: 0 0 8px rgb(200 230 255 / 0.8);
+}
+
+@keyframes frostFall {
+  0%   { opacity: 0; transform: translate3d(0, -10px, 0); }
+  20%  { opacity: 0.75; }
+  55%  { transform: translate3d(20px, 130px, 0); }
+  85%  { opacity: 0.58; }
+  100% { opacity: 0; transform: translate3d(-10px, 260px, 0); }
+}

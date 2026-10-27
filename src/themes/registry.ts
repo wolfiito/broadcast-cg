@@ -1,5 +1,6 @@
 import type { ThemeDefinition, ThemeId } from "./types"
 import { otonoTheme } from "./presets/otono"
+import { pizarraTheme } from "./presets/pizarra"
 
 /**
  * Registro central de temas. Para agregar uno nuevo:
@@ -10,4 +11,5 @@ import { otonoTheme } from "./presets/otono"
  */
 export const THEMES: Record<ThemeId, ThemeDefinition> = {
   otono: otonoTheme,
+  pizarra: pizarraTheme,
 }

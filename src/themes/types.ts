@@ -2,9 +2,9 @@ import type { Variants } from "framer-motion"
 import type { ComponentType } from "react"
 import type { ContentKind } from "@/lib/freeshow/parseSlide"
 
-export const THEME_IDS = ["otono"] as const
+export const THEME_IDS = ["otono", "pizarra"] as const
 export type ThemeId = (typeof THEME_IDS)[number]
-export const DEFAULT_THEME_ID: ThemeId = "otono"
+export const DEFAULT_THEME_ID: ThemeId = "pizarra"
 
 export function isThemeId(value: string): value is ThemeId {
   return (THEME_IDS as readonly string[]).includes(value)
